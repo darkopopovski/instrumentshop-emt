@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <style>
+    body{
+      color:white;
+    }
+  </style>
+</head>
+
+<body style="background: darkslategray;">
+<th:block xmlns:th="http://www.thymeleaf.org">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">INSTRUMENTS SHOP</h1>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <form action="/instruments/add" method="POST">
+          <input id="id" type="hidden" name="id" th:value="(${product} != null ? ${product.getInstrument_id()} : '')">
+          <div class="form-group">
+            <label for="instrument_id">Product ID</label>
+            <input type="number"
+                   class="form-control"
+                   id="instrument_id"
+                   name="instrument_id"
+                   th:value="(${product} != null ? ${product.getInstrument_id()} : '')"
+                   required
+                   placeholder="Enter product ID">
+          </div>
+          <div class="form-group">
+            <label for="instrument_name">Product name</label>
+            <input type="text"
+                   class="form-control"
+                   id="instrument_name"
+                   name="instrument_name"
+                   th:value="(${product} != null ? ${product.getInstrument_name()} : '')"
+                   required
+                   placeholder="Enter product name">
+          </div>
+          <div class="form-group">
+            <label for="instrument_year">Instrument Year</label>
+            <input type="text"
+                   class="form-control"
+                   id="instrument_year"
+                   name="instrument_year"
+                   th:value="(${product} != null ? ${product.getInstrument_year()} : '')"
+                   placeholder="Year">
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select name="brand_id" class="form-control">
+              <option th:if="${product} != null"
+                      th:selected="${product.getBrand() != null &&
+                                product.getBrand().getBrand_id() == brands.getBrand_id()}"
+                      th:each="brands : ${brands}"
+                      th:value="${brands.getBrand_id()}"
+                      th:text="${brands.getBrand_name()}">
+              </option>
+              <option th:if="${product} == null"
+                      th:each="brands : ${brands}"
+                      th:value="${brands.getBrand_id()}"
+                      th:text="${brands.getBrand_name()}">
+              </option>
+            </select>
+          </div>
+          <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+          <a type="button" class="btn btn-primary" href="/instruments">Back</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</th:block>
+
+</body>
+</html>
